@@ -54,20 +54,20 @@ pipeline{
                 script{
                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker'){   
                        sh "docker build -t hotstar ."
-                       sh "docker tag hotstar emstev/hotstar:latest "
-                       sh "docker push emstev/hotstar:latest "
+                       sh "docker tag hotstar Emstev/hotstar:latest "
+                       sh "docker push Emstev/hotstar:latest "
                     }
                 }
             }
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image emstev/hotstar:latest > trivyimage.txt" 
+                sh "trivy image Emstev/hotstar:latest > trivyimage.txt" 
             }
         }
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name hotstar -p 3000:3000 emstev/hotstar:latest'
+                sh 'docker run -d --name hotstar -p 3000:3000 Emstev/hotstar:latest'
             }
         }
 
